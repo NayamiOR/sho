@@ -9,3 +9,15 @@ version = "0.1.0"
 [[package]]
 name = "sho_core"
 version = "0.1.0"
+
+[[package]]
+name = "sho_index"
+version = "0.1.0"
+
+[[package]]
+name = "sho_ir"
+version = "0.1.0"
+
+[[package]]
+name = "sho_query"
+version = "0.1.0"
