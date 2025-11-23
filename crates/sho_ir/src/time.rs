@@ -1,5 +1,3 @@
-use crate::id::Id;
-
 pub enum HistoricalTime {
     ExactTime(ExactTime),
     RoughTime(RoughTime),
@@ -13,7 +11,7 @@ pub struct ExactTime {
 pub enum Year {
     CommonEra(i32),
     ChineseEra {
-        motto: Id, // 年号年
+        motto: String, // 年号年
         year: u32,
     },
     Ganzhi(Ganzhi), // 干支年
@@ -29,8 +27,9 @@ pub struct MonthDay {
 }
 
 pub enum TimeRange {
-    BetweenTime(ExactTime, ExactTime),
-    BetweenFact(Id, Id),
+    // NOTE: BetweenFact and BetweenTime should be in the time range struct in the semantic layer
+    // instead of IR layer.
+    // NOTE: This enum is left empty for future use.
 }
 
 pub enum RoughTime {
@@ -46,10 +45,9 @@ pub enum Season {
 }
 
 pub struct ReignMotto {
-    id: Id,
     name: String,
-    emperor: Id,
-    dynasty: Id,
+    emperor: String,
+    dynasty: String,
     start_bc_year: Option<u32>,
     end_bc_year: Option<u32>,
 }
