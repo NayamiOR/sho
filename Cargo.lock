@@ -94,19 +94,15 @@ name = "sho_ir"
 version = "0.1.0"
 
 [[package]]
+name = "sho_loader"
+version = "0.1.0"
+
+[[package]]
 name = "sho_parser"
 version = "0.1.0"
 
 [[package]]
-name = "sho_query"
-version = "0.1.0"
-
-[[package]]
-name = "sho_storage"
-version = "0.1.0"
-
-[[package]]
-name = "sho_time"
+name = "sho_runtime"
 version = "0.1.0"
 
 [[package]]

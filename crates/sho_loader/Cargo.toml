@@ -1,5 +1,5 @@
 [package]
-name = "sho_query"
+name = "sho_loader"
 version = "0.1.0"
 edition = "2024"
 
