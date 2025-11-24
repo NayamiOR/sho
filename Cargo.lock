@@ -96,6 +96,10 @@ version = "0.1.0"
 [[package]]
 name = "sho_loader"
 version = "0.1.0"
+dependencies = [
+ "sho_core",
+ "sho_ir",
+]
 
 [[package]]
 name = "sho_parser"
