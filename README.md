@@ -21,9 +21,10 @@
 - crates
     - sho_cli - 命令行工具
     - sho_core - 核心库
-    - sho_index - 索引库
+    - sho_loader - 将解析得到的 AST 转为 IR
     - sho_ir - 中间表示
-    - sho_query - 查询引擎
+    - sho_parser - 脚本解析器
+    - sho_runtime - 运行时，负责运行和查询等
 
 ## 社区与讨论
 
