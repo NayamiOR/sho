@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 uuid = { version = "1.18.1", features = ["v4"] }
+bon = "3.8.1"
