@@ -1,4 +1,6 @@
 use uuid::Uuid;
+
+#[derive(Debug)]
 pub struct Id(pub Uuid);
 
 impl Id {
@@ -6,7 +8,7 @@ impl Id {
         Self(Uuid::new_v4())
     }
 
-    fn from(n:u128)-> Self {
+    fn from(n: u128) -> Self {
         Self(Uuid::from_u128(n))
     }
 
