@@ -6,7 +6,15 @@ impl Id {
         Self(Uuid::new_v4())
     }
 
+    fn from(n:u128)-> Self {
+        Self(Uuid::from_u128(n))
+    }
+
     pub fn to_string(&self) -> String {
         self.0.to_string()
+    }
+
+    pub fn nil() -> Self {
+        Self(Uuid::nil())
     }
 }
