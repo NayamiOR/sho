@@ -10,8 +10,9 @@ use sho_ir::records::IrRelationship;
 use sho_ir::time::IrTime;
 use sho_ir::IrNode;
 use std::collections::HashMap;
+use std::hash::Hash;
 
-type SymbolTable = HashMap<impl Into<String>, (Id, IrNode)>;
+type SymbolTable = HashMap<String, (Id, IrNode)>;
 
 // Return SymbolTable and orphan nodes
 pub fn parse_symbol_table(input: Vec<IrNode>) -> (SymbolTable, Vec<IrNode>) {
@@ -19,7 +20,7 @@ pub fn parse_symbol_table(input: Vec<IrNode>) -> (SymbolTable, Vec<IrNode>) {
     let mut orphans = vec![];
     input.into_iter().for_each(|node| match node.get_label() {
         Some(label) => {
-            symbol_table.insert(label, (Id::new(), node));
+            symbol_table.insert(label.into(), (Id::new(), node));
         }
         None => {
             orphans.push(node);
@@ -37,7 +38,7 @@ pub fn parse_entity_table(
     let mut entity_table = HashMap::new();
     orphans
         .into_iter()
-        .map(evaluate)
+        .map(|node| evaluate(node, &symbol_table))
         .for_each(|entity: EntityContent| {
             let id = Id::new();
             entity_table.insert(
@@ -89,7 +90,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
                 .collect(),
             content: n.content,
             time: n.time.map(parse_time),
-            result: n.result.map(|x| symbol_table.get(x.into()).unwrap().0),
+            result: n.result.map(|x| symbol_table.get((&x).into()).unwrap().0),
             location: None,
         }),
         IrNode::Utterance(n) => EntityContent::Utterance(Utterance {

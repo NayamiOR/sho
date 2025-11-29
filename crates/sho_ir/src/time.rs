@@ -1,11 +1,11 @@
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub enum IrTime {
     Exact { year: Year, month_day: MonthDay },
     YearSeason(Year, Season),
     Century(i8),
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub enum Year {
     CommonEra(i32),
     ChineseEra {
@@ -18,13 +18,13 @@ pub enum Year {
     },
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub struct MonthDay {
     pub month: Option<u32>,
     pub day: Option<u32>,
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub enum Season {
     Spring,
     Summer,
@@ -32,7 +32,7 @@ pub enum Season {
     Winter,
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone)]
 pub struct ReignMotto {
     name: String,
     emperor: String,

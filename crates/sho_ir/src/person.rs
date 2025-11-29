@@ -1,6 +1,6 @@
 use crate::time::IrTime;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub struct IrPerson {
     pub label: String,
     pub gender: Option<IrGender>,
@@ -14,7 +14,7 @@ pub struct IrPerson {
     pub death_time: Option<IrTime>,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub enum IrGender {
     Male,
     Female,

@@ -1,15 +1,17 @@
 use crate::person::IrPerson;
-use crate::records::{IrAssessment, IrDeed, IrEpisode, IrFact, IrInstitution, IrRelation, IrUtterance};
+use crate::records::{
+    IrAssessment, IrDeed, IrEpisode, IrFact, IrInstitution, IrRelation, IrUtterance,
+};
 
-pub mod records;
 pub mod person;
 pub mod possibility;
+pub mod records;
 pub mod time;
 
 /// --- 总的 IR 节点枚举 ---
 /// Parser 的最终输出是一个 `Vec<IrNode>`。
 /// 这个枚举囊括了所有可以在 .sho 文件中定义的顶级实体。
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Hash, Eq)]
 pub enum IrNode {
     Person(IrPerson),
     Deed(IrDeed),
