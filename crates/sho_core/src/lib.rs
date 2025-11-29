@@ -1,3 +1,3 @@
 pub mod id;
-mod entity;
+pub mod entity;
 mod elements;
