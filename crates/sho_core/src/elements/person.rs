@@ -1,8 +1,7 @@
-use crate::id::Id;
-use crate::time::Time;
-use bon::{builder, Builder};
+use crate::elements::time::Time;
+use bon::Builder;
 
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct Person {
     pub label: String,
     pub gender: Option<Gender>,
@@ -16,7 +15,7 @@ pub struct Person {
     pub death_time: Option<Time>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Gender {
     Male,
     Female,

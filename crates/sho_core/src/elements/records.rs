@@ -1,9 +1,9 @@
+use crate::elements::time::Time;
 use crate::id::Id;
-use crate::time::Time;
 use bon::Builder;
 
 // 事迹（带有某人的主观能动性）
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct Deed {
     pub label: String,
     pub subject: Id,
@@ -15,11 +15,11 @@ pub struct Deed {
 }
 
 // 状态（或者属性变化）
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct State {} // TODO: 目前没有好设计，先预留
 
 // 言论
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct Utterance {
     pub subject: Id,
     pub content: String,
@@ -30,7 +30,7 @@ pub struct Utterance {
 }
 
 // 关系
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct Relation {
     pub subject: Id,
     pub object: Vec<Id>,
@@ -41,7 +41,7 @@ pub struct Relation {
 }
 
 // 关系分类
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum RelationShip {
     Parent,
     Child,
@@ -52,7 +52,7 @@ pub enum RelationShip {
 }
 
 // 制度
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct Institution {
     pub label: String,
     pub subject: Id,
@@ -64,7 +64,7 @@ pub struct Institution {
 // NOTE: Fact和Episode替代Event，一个是原子事件一个是大事件（事件集合）
 
 // 原子事件
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct Fact {
     pub time: Time,
     pub related: Vec<Id>,
@@ -73,7 +73,7 @@ pub struct Fact {
 }
 
 // 大事件（原子事件集合）
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct Episode {
     pub time: Time,
     pub related: Vec<Id>,
@@ -82,7 +82,7 @@ pub struct Episode {
 }
 
 // 评价
-#[derive(Debug, Builder)]
+#[derive(Debug, Builder, Clone)]
 pub struct Assessment {
     pub subject: Id,
     pub object: Id,
