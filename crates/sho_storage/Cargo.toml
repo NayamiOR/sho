@@ -1,0 +1,8 @@
+[package]
+name = "sho_storage"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+sho_loader = { path = "../sho_loader" }
+sho_core = { path = "../sho_core" }
