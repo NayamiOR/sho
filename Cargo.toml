@@ -1,2 +1,2 @@
 [workspace]
-members = ["crates/sho_core", "crates/sho_ir", "crates/sho_runtime", "crates/sho_parser", "crates/sho_loader", "crates/sho_storage"]
+members = ["crates/sho_core", "crates/sho_ir", "crates/sho_runtime", "crates/sho_parser", "crates/sho_loader"]

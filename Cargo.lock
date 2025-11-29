@@ -189,14 +189,6 @@ name = "sho_runtime"
 version = "0.1.0"
 
 [[package]]
-name = "sho_storage"
-version = "0.1.0"
-dependencies = [
- "sho_core",
- "sho_loader",
-]
-
-[[package]]
 name = "strsim"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

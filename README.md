@@ -19,12 +19,12 @@
 ## 项目结构
 
 - crates
+    - sho_cli - 命令行工具
     - sho_core - 核心库
-    - sho_loader - 将解析得到的 IR 转为 Core 结构
+    - sho_loader - 将解析得到的 AST 转为 IR
     - sho_ir - 中间表示
-    - sho_parser - 脚本解析器，输出 IR
+    - sho_parser - 脚本解析器
     - sho_runtime - 运行时，负责运行和查询等
-    - sho_storage - 实体（Entity）存储
 
 ## 工作流程
 
