@@ -4,7 +4,7 @@ use crate::time::IrTime;
 pub enum IrSeason { Spring, Summer, Autumn, Winter }
 
 #[derive(Debug, Clone, PartialEq)]
-pub enum IrRelationShip {
+pub enum IrRelationship {
     Parent,
     Child,
     Sibling,
@@ -20,11 +20,11 @@ pub enum IrRelationShip {
 pub struct IrDeed {
     pub label: String, // 事迹的标签，例如 "官渡之战"
     pub subject: String, // 发起者的标签
-    pub related: Vec<String>, // 其他相关实体的标签
+    pub related: Vec<String>, // 其他相关实体的标签，用关键词字面量表示
     pub content: String, // 内容描述
     pub time: Option<IrTime>, // 发生时间
     pub result: Option<String>, // 结果的标签 (通常指向一个 Fact)
-    pub location: Option<String>, // 地点标签
+    pub location: Option<String>, // 地点标签, 先预留好
 }
 
 // 对应 core::State (保持为 TODO)
@@ -50,7 +50,7 @@ pub struct IrRelation {
     pub label: Option<String>, // 关系可选的标签，例如 "曹操与曹丕的父子关系"
     pub subject: String, // 关系主体
     pub object: Vec<String>, // 关系客体
-    pub relationship: IrRelationShip, // 关系类型
+    pub relationship: IrRelationship, // 关系类型
     pub relation_text: String, // 关系的具体文本描述
     pub time: Option<IrTime>, // 关系存续的时间
     pub description: String, // 补充描述

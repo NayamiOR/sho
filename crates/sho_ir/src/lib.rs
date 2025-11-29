@@ -24,7 +24,6 @@ pub enum IrNode {
 
 impl IrNode {
     /// 辅助函数，用于 Loader 方便地获取任何节点的标签。
-    /// 这对于构建符号表至关重要。
     pub fn get_label(&self) -> Option<&str> {
         match self {
             IrNode::Person(n) => Some(&n.label),

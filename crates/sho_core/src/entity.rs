@@ -6,8 +6,8 @@ use crate::id::Id;
 
 #[derive(Clone)]
 pub struct Entity {
-    id: Id,
-    content: EntityContent,
+    pub id: Id,
+    pub content: EntityContent,
 }
 
 #[derive(Clone)]
