@@ -5,10 +5,10 @@ use sho_core::elements::records::{
 use sho_core::elements::time::Time;
 use sho_core::entity::{Entity, EntityContent};
 use sho_core::id::Id;
+use sho_ir::IrNode;
 use sho_ir::person::IrGender;
 use sho_ir::records::IrRelationship;
 use sho_ir::time::IrTime;
-use sho_ir::IrNode;
 use std::collections::HashMap;
 use std::hash::Hash;
 
@@ -92,6 +92,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
             time: n.time.map(parse_time),
             result: n.result.map(|x| symbol_table.get((&x).into()).unwrap().0),
             location: None,
+            same: None, // IrDeed 中暂无 same 字段
         }),
         IrNode::Utterance(n) => EntityContent::Utterance(Utterance {
             subject: symbol_table.get(&n.subject).unwrap().0,
@@ -132,6 +133,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
                 .collect(),
             content: n.content,
             location: None,
+            same: n.same.map(|x| symbol_table.get(&x).unwrap().0),
         }),
         IrNode::Episode(n) => EntityContent::Episode(Episode {
             time: parse_time(n.time),
@@ -146,6 +148,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
                 .map(|x| symbol_table.get(x).unwrap().0)
                 .collect(),
             result: symbol_table.get(&n.result).unwrap().0,
+            same: n.same.map(|x| symbol_table.get(&x).unwrap().0),
         }),
         IrNode::Assessment(n) => EntityContent::Assessment(Assessment {
             subject: symbol_table.get(&n.subject).unwrap().0,

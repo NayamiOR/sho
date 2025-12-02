@@ -12,6 +12,7 @@ pub struct Deed {
     pub time: Option<Time>,
     pub result: Option<Id>,
     pub location: Option<Id>, // 预留给地点功能
+    pub same: Option<Id>, // 预留给重复事件
 }
 
 // 状态（或者属性变化）
@@ -70,6 +71,7 @@ pub struct Fact {
     pub related: Vec<Id>,
     pub content: String,
     pub location: Option<Id>, // 预留给地点功能
+    pub same: Option<Id>, // 预留给重复事件
 }
 
 // 大事件（原子事件集合）
@@ -79,6 +81,7 @@ pub struct Episode {
     pub related: Vec<Id>,
     pub sub_facts: Vec<Id>,
     pub result: Id, // 表示结果的Fact的ID
+    pub same: Option<Id>, // 预留给重复事件
 }
 
 // 评价

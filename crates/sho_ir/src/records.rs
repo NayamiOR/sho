@@ -79,6 +79,7 @@ pub struct IrFact {
     pub related: Vec<String>,     // 相关实体的标签
     pub content: String,          // 内容描述
     pub location: Option<String>, // 地点标签
+    pub same: Option<String>,     // 指向相同事件的标签
 }
 
 // 对应 core::Episode
@@ -89,6 +90,7 @@ pub struct IrEpisode {
     pub related: Vec<String>,   // 相关实体的标签
     pub sub_facts: Vec<String>, // 包含的原子事件的标签
     pub result: String,         // 指向作为结果的 Fact 的标签
+    pub same: Option<String>,   // 指向相同事件的标签
 }
 
 // 对应 core::Assessment
