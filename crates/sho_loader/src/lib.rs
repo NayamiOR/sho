@@ -1,14 +1,14 @@
-use sho_core::elements::person::{Gender, Person};
-use sho_core::elements::records::{
-    Assessment, Deed, Episode, Fact, Institution, Relation, RelationShip, Utterance,
-};
-use sho_core::elements::time::Time;
-use sho_core::entity::{Entity, EntityContent};
+use sho_core::elements::context::Time;
+use sho_core::elements::entities::person::{Gender, Person};
+use sho_core::elements::events::{Deed, Episode, Fact, Utterance};
+use sho_core::elements::sources::Assessment;
+use sho_core::elements::structures::{Institution, Relation, RelationShip};
 use sho_core::id::Id;
-use sho_ir::IrNode;
+use sho_core::object::{Object, ObjectContent};
 use sho_ir::person::IrGender;
 use sho_ir::records::IrRelationship;
 use sho_ir::time::IrTime;
+use sho_ir::IrNode;
 use std::collections::HashMap;
 use std::hash::Hash;
 
@@ -33,17 +33,17 @@ pub fn parse_entity_table(
     input: Vec<IrNode>,
     symbol_table: SymbolTable,
     orphans: Vec<IrNode>,
-) -> Result<HashMap<Id, Entity>, Vec<Box<dyn std::error::Error>>> {
+) -> Result<HashMap<Id, Object>, Vec<Box<dyn std::error::Error>>> {
     let mut errors = vec![];
     let mut entity_table = HashMap::new();
     orphans
         .into_iter()
         .map(|node| evaluate(node, &symbol_table))
-        .for_each(|entity: EntityContent| {
+        .for_each(|entity: ObjectContent| {
             let id = Id::new();
             entity_table.insert(
                 id,
-                Entity {
+                Object {
                     id,
                     content: entity.into(),
                 },
@@ -58,12 +58,12 @@ pub fn parse_entity_table(
 }
 
 // IR -> Core
-fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
+fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> ObjectContent {
     // 把IrNode变成Core结构
     match node {
         IrNode::Person(n) => {
             // let person = Person::builder().label(n.label);
-            EntityContent::Person(Person {
+            ObjectContent::Person(Person {
                 label: n.label,
                 gender: n.gender.map(|x| match x {
                     IrGender::Male => Gender::Male,
@@ -80,7 +80,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
                 death_time: n.death_time.map(parse_time),
             })
         }
-        IrNode::Deed(n) => EntityContent::Deed(Deed {
+        IrNode::Deed(n) => ObjectContent::Deed(Deed {
             label: n.label,
             subject: symbol_table.get(&n.subject).unwrap().0,
             related: n
@@ -94,7 +94,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
             location: None,
             same: None, // IrDeed 中暂无 same 字段
         }),
-        IrNode::Utterance(n) => EntityContent::Utterance(Utterance {
+        IrNode::Utterance(n) => ObjectContent::Utterance(Utterance {
             subject: symbol_table.get(&n.subject).unwrap().0,
             content: n.content,
             time: n.time.map(parse_time),
@@ -105,7 +105,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
                 .collect(),
             source: symbol_table.get(&n.source).unwrap().0,
         }),
-        IrNode::Relation(n) => EntityContent::Relation(Relation {
+        IrNode::Relation(n) => ObjectContent::Relation(Relation {
             subject: symbol_table.get(&n.subject).unwrap().0,
             object: n
                 .object
@@ -117,14 +117,14 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
             time: n.time.map(parse_time),
             description: n.description,
         }),
-        IrNode::Institution(n) => EntityContent::Institution(Institution {
+        IrNode::Institution(n) => ObjectContent::Institution(Institution {
             label: n.label,
             subject: symbol_table.get(&n.subject).unwrap().0,
             content: n.content,
             start_time: n.start_time.map(parse_time),
             source: symbol_table.get(&n.source).unwrap().0,
         }),
-        IrNode::Fact(n) => EntityContent::Fact(Fact {
+        IrNode::Fact(n) => ObjectContent::Fact(Fact {
             time: parse_time(n.time),
             related: n
                 .related
@@ -135,7 +135,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
             location: None,
             same: n.same.map(|x| symbol_table.get(&x).unwrap().0),
         }),
-        IrNode::Episode(n) => EntityContent::Episode(Episode {
+        IrNode::Episode(n) => ObjectContent::Episode(Episode {
             time: parse_time(n.time),
             related: n
                 .related
@@ -150,7 +150,7 @@ fn evaluate(node: IrNode, symbol_table: &SymbolTable) -> EntityContent {
             result: symbol_table.get(&n.result).unwrap().0,
             same: n.same.map(|x| symbol_table.get(&x).unwrap().0),
         }),
-        IrNode::Assessment(n) => EntityContent::Assessment(Assessment {
+        IrNode::Assessment(n) => ObjectContent::Assessment(Assessment {
             subject: symbol_table.get(&n.subject).unwrap().0,
             object: symbol_table.get(&n.object).unwrap().0,
             content: n.content,
